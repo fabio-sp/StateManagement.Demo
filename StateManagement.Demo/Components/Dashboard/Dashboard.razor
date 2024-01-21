@@ -1,9 +1,24 @@
-﻿@inherits FluxorComponent
-@inject IState<CollectionsStore.State> CollectionState
+﻿@implements IDisposable
+@inject ICollectionStateService CollectionStateService
 
 <div class="container-fluid d-flex flex-wrap overflow-y-scroll">
-    @foreach (var currentCollection in CollectionState.Value.CollectionsInDashboard)
+    @foreach (var currentCollection in CollectionStateService.CollectionsInDashboard)
     {
         <CollectionCard CurrentCollection="currentCollection"/>
     }
 </div>
+
+@code 
+{
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CollectionStateService.CollectionsChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CollectionStateService.CollectionsChanged -= StateHasChanged;
+    }
+}

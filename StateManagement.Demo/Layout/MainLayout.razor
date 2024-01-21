@@ -1,5 +1,5 @@
-﻿@inherits FluxorLayout
-@inject IDispatcher Dispatcher
+﻿@inherits LayoutComponentBase
+@inject ICollectionStateService CollectionStateService
 
 <UserArea />
 
@@ -10,6 +10,6 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Dispatcher.Dispatch(new CollectionsStore.LoadCollectionsAction());
+        CollectionStateService.LoadAvailableCollections();
     }
 }

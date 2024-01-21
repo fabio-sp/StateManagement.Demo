@@ -1,17 +1,14 @@
+using StateManagement.Demo.Models;
+
 namespace StateManagement.Demo.Tests.Components;
 
 public class CollectionListTests : TestContext
 {
-    private readonly IState<CollectionsStore.State> _collectionState;
-    private readonly IDispatcher _dispatcher;
-
+    private readonly ICollectionStateService _collectionState;
+    
     public CollectionListTests()
     {
-        _dispatcher = Substitute.For<IDispatcher>();
-        Services.AddSingleton(_dispatcher);
-        var actionSubscriber = Substitute.For<IActionSubscriber>();
-        Services.AddSingleton(actionSubscriber);
-        _collectionState = Substitute.For<IState<CollectionsStore.State>>();
+        _collectionState = Substitute.For<ICollectionStateService>();
         Services.AddSingleton(_collectionState);
     }
     
@@ -19,10 +16,7 @@ public class CollectionListTests : TestContext
     public void WhenNoCollectionsAreAvailable_ThenNoTableRowsExist()
     {
         // Arrange
-        _collectionState.Value.Returns(new CollectionsStore.State
-        {
-            AvailableCollections = ImmutableArray<CollectionsStore.Collection>.Empty
-        });
+        _collectionState.AvailableCollections.Returns([]);
         
         var component = RenderComponent<CollectionList>();
         
@@ -39,11 +33,8 @@ public class CollectionListTests : TestContext
         // Arrange
         var collectionId = "collection-id";
         var collectionName = "collection-name";
-        var collection = new CollectionsStore.Collection(collectionId, collectionName);
-        _collectionState.Value.Returns(new CollectionsStore.State
-        {
-            AvailableCollections = new[]{ collection }.ToImmutableArray()
-        });
+        var collection = new Collection(collectionId, collectionName);
+        _collectionState.AvailableCollections.Returns([collection]);
         
         var component = RenderComponent<CollectionList>();
         
@@ -52,6 +43,6 @@ public class CollectionListTests : TestContext
         renderedCollectionRow.Click();
         
         // Assert
-        _dispatcher.Received().Dispatch(Arg.Is<CollectionsStore.OpenCollectionAction>(x => x.CollectionId == collectionId));
+        _collectionState.Received().OpenCollection(Arg.Is<string>(x => x == collectionId));
     }
 }

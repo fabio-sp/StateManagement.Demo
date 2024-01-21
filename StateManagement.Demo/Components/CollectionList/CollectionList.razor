@@ -1,6 +1,5 @@
-﻿@inherits FluxorComponent
-@inject IState<CollectionsStore.State> CollectionState
-@inject IDispatcher Dispatcher
+﻿@implements IDisposable
+@inject ICollectionStateService CollectionStateService
 
 <div class="mt-3 overflow-auto">
     <table class="table align-middle m-0 vtable table-hover">
@@ -11,9 +10,9 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var collection in CollectionState.Value.AvailableCollections)
+        @foreach (var collection in CollectionStateService.AvailableCollections)
         {
-            <tr @onclick="() => Dispatcher.Dispatch(new CollectionsStore.OpenCollectionAction(collection.Id))">
+            <tr @onclick="async () => await CollectionStateService.OpenCollection(collection.Id)">
                 <td>@collection.Id</td>
                 <td>@collection.Name</td>
             </tr>
@@ -21,3 +20,17 @@
         </tbody>
     </table>
 </div>
+
+@code 
+{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CollectionStateService.CollectionsChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        CollectionStateService.CollectionsChanged -= StateHasChanged;
+    }
+}
