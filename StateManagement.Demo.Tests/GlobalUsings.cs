@@ -1,0 +1,11 @@
+global using System.Collections.Immutable;
+global using Bunit;
+global using Fluxor;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using NSubstitute;
+global using NSubstitute.ExceptionExtensions;
+global using StateManagement.Demo.Components.CollectionList;
+global using StateManagement.Demo.Services;
+global using StateManagement.Demo.Store;
+global using Xunit;

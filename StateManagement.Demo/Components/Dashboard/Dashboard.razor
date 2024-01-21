@@ -1,0 +1,9 @@
+﻿@inherits FluxorComponent
+@inject IState<CollectionsStore.State> CollectionState
+
+<div class="container-fluid d-flex flex-wrap overflow-y-scroll">
+    @foreach (var currentCollection in CollectionState.Value.CollectionsInDashboard)
+    {
+        <CollectionCard CurrentCollection="currentCollection"/>
+    }
+</div>

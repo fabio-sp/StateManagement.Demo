@@ -1,0 +1,15 @@
+﻿@inherits FluxorLayout
+@inject IDispatcher Dispatcher
+
+<UserArea />
+
+@Body
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Dispatcher.Dispatch(new CollectionsStore.LoadCollectionsAction());
+    }
+}

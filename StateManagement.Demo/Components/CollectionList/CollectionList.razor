@@ -1,0 +1,23 @@
+﻿@inherits FluxorComponent
+@inject IState<CollectionsStore.State> CollectionState
+@inject IDispatcher Dispatcher
+
+<div class="mt-3 overflow-auto">
+    <table class="table align-middle m-0 vtable table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var collection in CollectionState.Value.AvailableCollections)
+        {
+            <tr @onclick="() => Dispatcher.Dispatch(new CollectionsStore.OpenCollectionAction(collection.Id))">
+                <td>@collection.Id</td>
+                <td>@collection.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

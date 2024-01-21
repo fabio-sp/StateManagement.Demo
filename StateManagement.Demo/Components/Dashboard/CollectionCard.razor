@@ -1,0 +1,43 @@
+﻿<div class="w-50">
+    <div class="m-2">
+        <div class="card bg-light shadow">
+            <div class="card-header drf-header text-nowrap elly-bg text-light drf-header-selected">
+                <span>@CurrentCollection.DisplayName</span>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-sm align-middle m-0 overflow-auto">
+                    <thead>
+                    <tr>
+                        <td>Header 1</td>
+                        <td>Header 2</td>
+                        <td>Header 3</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public CollectionsStore.CurrentCollection CurrentCollection { get; set; }
+}

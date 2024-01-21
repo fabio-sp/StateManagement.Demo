@@ -1,0 +1,23 @@
+﻿@inject IDispatcher Dispatcher
+
+<form @onsubmit="AskQuestion">
+    <input class="form-control"
+           type="text"
+           spellcheck="false"
+           placeholder="Cosa posso fare per te?"
+           @bind-value="@_question"
+           required>
+    <label>Cosa posso fare per te?</label>
+</form>
+
+@code
+{
+    private string _question;
+
+    private Task AskQuestion()
+    {
+        Dispatcher.Dispatch(new CollectionsStore.AskQuestionAction(_question));
+        _question = null;
+        return Task.CompletedTask;
+    }
+}
