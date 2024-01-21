@@ -1,3 +1,5 @@
+using StateManagement.Demo.Models;
+
 namespace StateManagement.Demo.Tests.Components;
 
 public class CollectionListTests : TestContext
@@ -21,7 +23,7 @@ public class CollectionListTests : TestContext
         // Arrange
         _collectionState.Value.Returns(new CollectionsStore.State
         {
-            AvailableCollections = ImmutableArray<CollectionsStore.Collection>.Empty
+            AvailableCollections = ImmutableArray<Collection>.Empty
         });
         
         var component = RenderComponent<CollectionList>();
@@ -39,7 +41,7 @@ public class CollectionListTests : TestContext
         // Arrange
         var collectionId = "collection-id";
         var collectionName = "collection-name";
-        var collection = new CollectionsStore.Collection(collectionId, collectionName);
+        var collection = new Collection(collectionId, collectionName);
         _collectionState.Value.Returns(new CollectionsStore.State
         {
             AvailableCollections = new[]{ collection }.ToImmutableArray()

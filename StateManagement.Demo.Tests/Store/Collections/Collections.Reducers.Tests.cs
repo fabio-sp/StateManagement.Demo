@@ -1,4 +1,6 @@
-﻿namespace StateManagement.Demo.Tests.Store.Collections;
+﻿using StateManagement.Demo.Models;
+
+namespace StateManagement.Demo.Tests.Store.Collections;
 
 public class CollectionsReducersTests
 {
@@ -8,10 +10,10 @@ public class CollectionsReducersTests
         // Arrange
         var initialState = new CollectionsStore.State()
         {
-            CollectionsInDashboard = ImmutableArray<CollectionsStore.CurrentCollection>.Empty
+            CollectionsInDashboard = ImmutableArray<CurrentCollection>.Empty
         };
         
-        var currentCollection = new CollectionsStore.CurrentCollection("id","name",new());
+        var currentCollection = new CurrentCollection("id","name",new());
         var action = new CollectionsStore.AddCurrentCollectionToDashboardAction(currentCollection);
         
         // Act

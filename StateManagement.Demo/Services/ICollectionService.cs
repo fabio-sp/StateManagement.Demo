@@ -2,6 +2,6 @@
 
 public interface ICollectionService
 {
-    public Task<CollectionsStore.Collection[]> GetCollections();
-    public Task<CollectionsStore.CurrentCollection> GetCollectionData(string collectionId);
+    public Task<Collection[]> GetCollections();
+    public Task<CurrentCollection> GetCollectionData(string collectionId);
 }
