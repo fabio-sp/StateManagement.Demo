@@ -50,10 +50,11 @@ public class CollectionListTests : TestContext
         var component = RenderComponent<CollectionList>();
         
         // Act
-        var renderedCollectionRow = component.FindAll("table tbody tr")[0];
+        var renderedCollectionRow = component.Find("table tbody tr");
         renderedCollectionRow.Click();
         
         // Assert
-        _dispatcher.Received().Dispatch(Arg.Is<CollectionsStore.OpenCollectionAction>(x => x.CollectionId == collectionId));
+        _dispatcher.Received().Dispatch(Arg.Is<CollectionsStore.OpenCollectionAction>(x => 
+            x.CollectionId == collectionId));
     }
 }
