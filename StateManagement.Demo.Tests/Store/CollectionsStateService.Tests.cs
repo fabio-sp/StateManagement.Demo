@@ -1,6 +1,4 @@
-﻿using StateManagement.Demo.Models;
-
-namespace StateManagement.Demo.Tests.Store;
+﻿namespace StateManagement.Demo.Tests.Store;
 
 public class CollectionStateServiceTests
 {
@@ -18,14 +16,19 @@ public class CollectionStateServiceTests
     public async Task LoadAvailableCollections_ShouldLoadCollections()
     {
         // Arrange
-        var collections = new List<Collection> { new("1", "Test") };
-        _mockCollectionService.GetCollections().Returns(collections.ToArray());
+        List<Collection> collections = [ 
+            new("1", "Test1"),
+            new("2", "Test2"),
+            new("3", "Test3"), 
+            new("4", "Test4") 
+        ];
+        _mockCollectionService.GetAll().Returns(collections.ToArray());
 
         // Act
         await _collectionStateService.LoadAvailableCollections();
 
         // Assert
-        await _mockCollectionService.Received(1).GetCollections();
+        await _mockCollectionService.Received(1).GetAll();
         Assert.Equal(collections, _collectionStateService.AvailableCollections);
     }
 
@@ -33,14 +36,14 @@ public class CollectionStateServiceTests
     public async Task OpenCollection_ShouldAddCollectionToDashboard()
     {
         // Arrange
-        var currentCollection = new CurrentCollection("1", "Test", new List<CollectionDataRow>());
-        _mockCollectionService.GetCollectionData("1").Returns(currentCollection);
+        var collection = new CollectionDetails("1", "Test1", []);
+        _mockCollectionService.Get("1").Returns(collection);
 
         // Act
         await _collectionStateService.OpenCollection("1");
 
         // Assert
-        Assert.Contains(currentCollection, _collectionStateService.CollectionsInDashboard);
-        await _mockCollectionService.Received(1).GetCollectionData("1");
+        Assert.Contains(collection, _collectionStateService.DashboardCollections);
+        await _mockCollectionService.Received(1).Get("1");
     }
 }

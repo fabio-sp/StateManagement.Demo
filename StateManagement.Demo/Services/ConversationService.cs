@@ -1,22 +1,20 @@
 namespace StateManagement.Demo.Services;
 
-public class ConversationService(ICollectionStateService collectionStateService) : IConversationService
+public class ConversationService(ICollectionStateService collectionService) : IConversationService
 {
-    public string GetCollectionToOpen(string question)
+    public void HandleRequest(string query)
     {
-        var words = question.Split(" ");
+        var words = query.Split(" ");
         
         for(var i = words.Length-1; i > 0; i--)
         {
             var word = words[i];
-            var collection = collectionStateService
+            var collection = collectionService
                 .AvailableCollections
                 .FirstOrDefault(c => c.Name.Contains(word, StringComparison.InvariantCultureIgnoreCase));
 
             if (collection is not null)
-                return collection.Id;
+                collectionService.OpenCollection(collection.Id);
         }
-
-        return null;
     }
 }

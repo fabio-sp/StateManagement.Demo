@@ -1,23 +1,20 @@
-using StateManagement.Demo.Models;
-
 namespace StateManagement.Demo.Tests.Components;
 
 public class CollectionListTests : TestContext
 {
-    private readonly ICollectionStateService _collectionState;
+    private readonly ICollectionStateService _collectionStateService;
     
     public CollectionListTests()
     {
-        _collectionState = Substitute.For<ICollectionStateService>();
-        Services.AddSingleton(_collectionState);
+        _collectionStateService = Substitute.For<ICollectionStateService>();
+        Services.AddSingleton(_collectionStateService);
     }
     
     [Fact]
     public void WhenNoCollectionsAreAvailable_ThenNoTableRowsExist()
     {
         // Arrange
-        _collectionState.AvailableCollections.Returns([]);
-        
+        _collectionStateService.AvailableCollections.Returns([]);
         var component = RenderComponent<CollectionList>();
         
         // Act
@@ -28,14 +25,11 @@ public class CollectionListTests : TestContext
     }
     
     [Fact]
-    public void WhenCollectionRowIsClicked_ThenOpenCollectionActionIsDispatched()
+    public void WhenCollectionRowIsClicked_ThenOpenCollectionMethodIsInvoked()
     {
         // Arrange
-        var collectionId = "collection-id";
-        var collectionName = "collection-name";
-        var collection = new Collection(collectionId, collectionName);
-        _collectionState.AvailableCollections.Returns([collection]);
-        
+        var collection = new Collection("1", "Test1");
+        _collectionStateService.AvailableCollections.Returns([collection]);
         var component = RenderComponent<CollectionList>();
         
         // Act
@@ -43,6 +37,6 @@ public class CollectionListTests : TestContext
         renderedCollectionRow.Click();
         
         // Assert
-        _collectionState.Received().OpenCollection(Arg.Is<string>(x => x == collectionId));
+        _collectionStateService.Received().OpenCollection(Arg.Is<string>(x => x == collection.Id));
     }
 }

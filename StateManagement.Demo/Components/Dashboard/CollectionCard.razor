@@ -2,7 +2,7 @@
     <div class="m-2">
         <div class="card bg-light shadow">
             <div class="card-header drf-header text-nowrap elly-bg text-light drf-header-selected">
-                <span>@CurrentCollection.DisplayName</span>
+                <span>@CollectionDetails.DisplayName</span>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-sm align-middle m-0 overflow-auto">
@@ -38,5 +38,5 @@
 
 @code
 {
-    [Parameter] public CurrentCollection CurrentCollection { get; set; }
+    [Parameter] public CollectionDetails CollectionDetails { get; set; }
 }

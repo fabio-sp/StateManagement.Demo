@@ -2,9 +2,9 @@
 @inject ICollectionStateService CollectionStateService
 
 <div class="container-fluid d-flex flex-wrap overflow-y-scroll">
-    @foreach (var currentCollection in CollectionStateService.CollectionsInDashboard)
+    @foreach (var currentCollection in CollectionStateService.DashboardCollections)
     {
-        <CollectionCard CurrentCollection="currentCollection"/>
+        <CollectionCard CollectionDetails="currentCollection"/>
     }
 </div>
 

@@ -3,29 +3,16 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Fluxor" Version="5.9.1" />
-        <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.9.1" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
-      <_ContentIncludedByDefault Remove="Components\Layout\MainLayout.razor" />
-      <_ContentIncludedByDefault Remove="Components\Pages\Index.razor" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Folder Include="wwwroot\content\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Layout\MainLayout.razor" />
-      <AdditionalFiles Include="Pages\Index.razor" />
     </ItemGroup>
 
 </Project>

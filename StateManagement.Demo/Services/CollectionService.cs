@@ -9,14 +9,14 @@ public class CollectionService : ICollectionService
         new("id-3", "clienti")
     };
 
-    public Task<Collection[]> GetCollections()
+    public Task<Collection[]> GetAll()
         => Task.FromResult(Collections);
 
-    public Task<CurrentCollection> GetCollectionData(string collectionId)
+    public Task<CollectionDetails> Get(string collectionId)
     {
         var collection = Collections.FirstOrDefault(c => c.Id == collectionId);
         if (collection is not null)
-            return Task.FromResult(new CurrentCollection(collection.Id, collection.Name, []));
+            return Task.FromResult(new CollectionDetails(collection.Id, collection.Name, []));
         throw new ApplicationException($"No collection found for Id {collectionId}");
     }
 }

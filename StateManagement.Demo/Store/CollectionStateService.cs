@@ -5,11 +5,11 @@ public class CollectionStateService(ICollectionService collectionService) : ICol
     public event Action CollectionsChanged;
     
     public List<Collection> AvailableCollections { get; } = new();
-    public List<CurrentCollection> CollectionsInDashboard { get; } = new();
+    public List<CollectionDetails> DashboardCollections { get; } = new();
 
     public async Task LoadAvailableCollections()
     {
-        var collections = await collectionService.GetCollections();
+        var collections = await collectionService.GetAll();
         AvailableCollections.Clear();
         AvailableCollections.AddRange(collections);
         OnCollectionsChanged();
@@ -17,8 +17,8 @@ public class CollectionStateService(ICollectionService collectionService) : ICol
     
     public async Task OpenCollection(string collectionId)
     {
-        var currentCollection = await collectionService.GetCollectionData(collectionId);
-        CollectionsInDashboard.Add(currentCollection);
+        var currentCollection = await collectionService.Get(collectionId);
+        DashboardCollections.Add(currentCollection);
         OnCollectionsChanged();
     }
 

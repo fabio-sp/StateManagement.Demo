@@ -12,7 +12,7 @@
         <tbody>
         @foreach (var collection in CollectionStateService.AvailableCollections)
         {
-            <tr @onclick="async () => await CollectionStateService.OpenCollection(collection.Id)">
+            <tr @onclick="() => CollectionStateService.OpenCollection(collection.Id)">
                 <td>@collection.Id</td>
                 <td>@collection.Name</td>
             </tr>

@@ -1,5 +1,6 @@
-﻿
-<form @onsubmit="AskQuestion">
+﻿@inject IConversationService ConversationService
+
+<form @onsubmit="HandleRequest">
     <input class="form-control"
            type="text"
            spellcheck="false"
@@ -12,10 +13,10 @@
 @code
 {
     private string _question;
-
-    private Task AskQuestion()
+    
+    private void HandleRequest()
     {
-        // ???
-        return Task.CompletedTask;
+        ConversationService.HandleRequest(_question);
+        _question = string.Empty;
     }
 }

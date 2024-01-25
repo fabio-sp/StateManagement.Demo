@@ -3,7 +3,7 @@
 public interface ICollectionStateService
 {
     List<Collection> AvailableCollections { get; }
-    List<CurrentCollection> CollectionsInDashboard { get; }
+    List<CollectionDetails> DashboardCollections { get; }
     Task OpenCollection(string collectionId);
     event Action CollectionsChanged;
     Task LoadAvailableCollections();
